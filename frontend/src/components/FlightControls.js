@@ -62,7 +62,7 @@ const Grid = styled.div`
 `
 
 const Title = styled.h1`
-  font-size: 1.5em;
+  font-size: 1.5rem;
   color: white;
 `
 
@@ -184,7 +184,7 @@ export default class FlightControls extends React.Component {
   render() {
     return (
       <div>
-        <h1>Flight Control Center</h1>
+        <Title>Flight Control Center</Title>
         <Grid>
           {/* <h2>
             Status:

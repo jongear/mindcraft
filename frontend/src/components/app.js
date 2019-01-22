@@ -14,33 +14,62 @@ const PageStyles = styled.div`
   max-width: 500px;
   margin: 0 auto;
 `
+const StyledNav = styled.nav`
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  li {
+    float: left;
+  }
+
+  li a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+  }
+`
+
+const StyledLink = styled(Link)`
+  color: white;
+  display: block;
+  margin: 0.5em 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+
+  &:hover {
+    color: #63c2de;
+  }
+  &.active {
+    color: red;
+  }
+`
 
 export default class App extends React.Component {
   constructor() {
     super()
   }
 
-  componentDidMount() {
-    //document.body.style.background = '#223D51'
-  }
-
   render() {
     return (
       <Router>
-        {/* <div style={{ backgroundColor: '#223D51' }}> */}
         <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/training/">Training</Link>
-              </li>
-            </ul>
-          </nav>
-
           <PageStyles>
+            <StyledNav>
+              <ul>
+                <li>
+                  <StyledLink to="/">Home</StyledLink>
+                </li>
+                <li>
+                  <StyledLink to="/training/">Training</StyledLink>
+                </li>
+              </ul>
+            </StyledNav>
             <Route path="/" exact component={FlightControls} />
             <Route path="/training/" component={Training} />
           </PageStyles>

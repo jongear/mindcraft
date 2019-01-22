@@ -1,4 +1,10 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const Title = styled.h1`
+  font-size: 1.5rem;
+  color: white;
+`
 
 export default class FlightControls extends React.Component {
   constructor() {
@@ -11,7 +17,7 @@ export default class FlightControls extends React.Component {
   render() {
     return (
       <div>
-        <h1>Flight Training Center</h1>
+        <Title>Flight Training Center</Title>
       </div>
     )
   }
