@@ -1,0 +1,5 @@
+node_modules
+.ebextensions
+src/docs
+coverage
+*.spec.js

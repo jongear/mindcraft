@@ -1,0 +1,15 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "editor.formatOnSave": true,
+  "emojisense.languages": {
+    "markdown": true,
+    "plaintext": {
+      "markupCompletionsEnabled": false,
+      "emojiDecoratorsEnabled": false
+    },
+    "git-commit": true,
+    "javascript": true
+  }
+}
