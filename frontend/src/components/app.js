@@ -7,6 +7,7 @@ import Training from './Training'
 injectGlobal`
   body {
     background-color: #223D51;
+    font-family: 'Helvetica', 'Arial', sans-serif;
   }
   `
 
@@ -38,7 +39,6 @@ const StyledLink = styled(Link)`
   color: white;
   display: block;
   margin: 0.5em 0;
-  font-family: Helvetica, Arial, sans-serif;
   font-size: 1rem;
   font-weight: bold;
 
