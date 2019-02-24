@@ -79,9 +79,13 @@ io.on('connection', socket => {
   })
 
   socket.on('reset-training', () => {
-    fs.writeFile(`${__dirname}/ml/data/training.csv`, '', function(err) {
-      if (err) throw err
-    })
+    fs.writeFile(
+      `${__dirname}/ml/data/training.csv`,
+      'direction,channel_1,channel_2,channel_3,channel_4,channel_5,channel_6,channel_7,channel_8,channel_9,channel_10,channel_11,channel_12,channel_13,channel_14,channel_15,channel_16\n',
+      function(err) {
+        if (err) throw err
+      }
+    )
   })
 
   socket.on('use-neurosky', () => {
