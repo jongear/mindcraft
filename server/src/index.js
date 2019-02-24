@@ -3,6 +3,9 @@ const log = require('./logger')
 const app = require('express')()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
+const { fork } = require('child_process')
+const fs = require('fs')
+const Neurosky = require('./bci/neurosky')
 
 const port = 3005
 server.listen(port)
@@ -14,6 +17,7 @@ app.get('/', (req, res) => {
 })
 
 const drone = new Drone({ logger: log })
+const neurosky = new Neurosky(drone)
 
 io.on('connection', socket => {
   socket.emit('news', { hello: 'world' })
@@ -63,6 +67,25 @@ io.on('connection', socket => {
     drone.emergency().then(function() {
       log('emergency')
     })
+  })
+
+  socket.on('train-direction', direction => {
+    const eegRecorder = fork('src/ml/eegRecorder')
+    eegRecorder.send(direction)
+
+    setTimeout(() => {
+      eegRecorder.send('end')
+    }, 15000)
+  })
+
+  socket.on('reset-training', () => {
+    fs.writeFile(`${__dirname}/ml/data/training.csv`, '', function(err) {
+      if (err) throw err
+    })
+  })
+
+  socket.on('use-neurosky', () => {
+    neurosky.conenct()
   })
 })
 
