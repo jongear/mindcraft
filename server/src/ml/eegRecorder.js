@@ -12,10 +12,10 @@ const cytonBoard = new Cyton({
   hardSet: true,
   verbose: verbose
 })
+const steeringModel = new SteeringModel()
 
 process.on('message', message => {
   console.log(`Message from host: ${message}`)
-  const steeringModel = new SteeringModel()
   const directionIdx = steeringModel.DIRECTION_CLASSES.indexOf(message)
 
   if (directionIdx > -1) {
