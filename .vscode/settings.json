@@ -11,5 +11,9 @@
     },
     "git-commit": true,
     "javascript": true
+  },
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#ffffff",
+    "titleBar.activeBackground": "#49b65d"
   }
 }
