@@ -61,6 +61,27 @@ const Grid = styled.div`
   }
 `
 
+const HeadsetControl = styled.div`
+  padding-top:5px;  
+  color: white;
+  button {
+    cursor: pointer;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.05);
+    border: 0;
+    background: #49b65d;
+    border: 4px solid transparent;
+    color: white;
+    font-size: 1rem;
+    position: relative;
+    &:active {
+      top: 2px;
+    }
+    &:disabled {
+      background: #7fcc8d;
+      cursor: not-allowed;
+    }
+`
+
 const Title = styled.h1`
   font-size: 1.5rem;
   color: white;
@@ -73,9 +94,15 @@ export default class FlightControls extends React.Component {
     // state
     this.state = {
       status: 'landed',
+      neuroskyEnabled: false,
+      ultracortexEnabled: false,
     }
 
     this.onKeydown = this.onKeydown.bind(this)
+    this.stopNeuroSky = this.stopNeuroSky.bind(this)
+    this.startNeuroSky = this.startNeuroSky.bind(this)
+    this.stopUltracortex = this.stopUltracortex.bind(this)
+    this.startUltracortex = this.startUltracortex.bind(this)
   }
 
   componentDidMount() {
@@ -108,6 +135,28 @@ export default class FlightControls extends React.Component {
     this.setState({
       status: status,
     })
+  }
+
+  startNeuroSky() {
+    debugger
+    this.sendCommand('enable-neurosky')()
+    this.setState({ neuroskyEnabled: true })
+  }
+
+  stopNeuroSky() {
+    debugger
+    this.sendCommand('disable-neurosky')()
+    this.setState({ neuroskyEnabled: false })
+  }
+
+  startUltracortex() {
+    this.sendCommand('enable-ultracortex')()
+    this.setState({ ultracortexEnabled: true })
+  }
+
+  stopUltracortex() {
+    this.sendCommand('disable-ultracortex')()
+    this.setState({ ultracortexEnabled: false })
   }
 
   onKeydown(e) {
@@ -255,6 +304,36 @@ export default class FlightControls extends React.Component {
             <span className="symbol">⤓</span> lower {amount}cm
           </button>
         </Grid>
+
+        <div style={{ paddingTop: '50px' }}>
+          <HeadsetControl>
+            <span>NeuroSky: </span>
+            {this.state.neuroskyEnabled ? (
+              <button
+                style={{ backgroundColor: '#e76f51' }}
+                onClick={this.stopNeuroSky}
+              >
+                Disable
+              </button>
+            ) : (
+              <button onClick={this.startNeuroSky}>Enable</button>
+            )}
+          </HeadsetControl>
+
+          <HeadsetControl>
+            <span>Ultracortex:</span>
+            {this.state.ultracortexEnabled ? (
+              <button
+                style={{ backgroundColor: '#e76f51' }}
+                onClick={this.stopUltracortex}
+              >
+                Disable
+              </button>
+            ) : (
+              <button onClick={this.startUltracortex}>Enable</button>
+            )}
+          </HeadsetControl>
+        </div>
       </div>
     )
   }

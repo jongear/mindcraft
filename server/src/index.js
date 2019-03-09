@@ -88,8 +88,12 @@ io.on('connection', socket => {
     )
   })
 
-  socket.on('use-neurosky', () => {
-    neurosky.conenct()
+  socket.on('enable-neurosky', () => {
+    neurosky.connect()
+  })
+
+  socket.on('disable-neurosky', () => {
+    neurosky.disconnect()
   })
 })
 

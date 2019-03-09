@@ -2,10 +2,14 @@ const log = require('../logger')
 const thinkgear = require('node-thinkgear-sockets')
 
 let droneFlying = false
-
+let drone = null
 class Neurosky {
-  constructor(drone) {
+  constructor(inputDrone) {
+    drone = inputDrone
     droneFlying = false
+  }
+
+  connect() {
     this.client = thinkgear.createClient()
 
     console.log(this.client)
@@ -54,10 +58,11 @@ class Neurosky {
         }
       }
     })
+    this.client.connect()
   }
 
-  conenct() {
-    this.client.connect()
+  disconnect() {
+    this.client = null
   }
 }
 
