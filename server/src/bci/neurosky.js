@@ -1,11 +1,16 @@
 const log = require('../logger')
 const thinkgear = require('node-thinkgear-sockets')
 
+let droneFlying = false
+
 class Neurosky {
   constructor(drone) {
+    droneFlying = false
     this.client = thinkgear.createClient()
+
+    console.log(this.client)
     this.client.on('data', function(data) {
-      //log(data)
+      log(data)
 
       const meditation = data.eSense.meditation
       if (meditation > 50) {
@@ -36,9 +41,17 @@ class Neurosky {
       console.log(data)
 
       if (data.blinkStrength > 200) {
-        drone.takeoff().then(function() {
-          log('did take off!')
-        })
+        if (droneFlying) {
+          drone.land().then(function() {
+            droneFlying = false
+            log('did land!')
+          })
+        } else {
+          drone.takeoff().then(function() {
+            droneFlying = true
+            log('did take off!')
+          })
+        }
       }
     })
   }
