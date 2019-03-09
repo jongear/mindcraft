@@ -42,7 +42,9 @@ export default class FlightControls extends React.Component {
   constructor() {
     super()
 
-    this.state = {}
+    this.state = {
+      trainingResponse: '',
+    }
     this.directions = ['neutral', 'right', 'left', 'forward', 'backward']
     this.directions.map(
       d =>
@@ -56,6 +58,10 @@ export default class FlightControls extends React.Component {
   componentDidMount() {
     socket.on('connect', () => {
       console.log('connected!')
+
+      socket.on('train-model-complete', data => {
+        this.setState({ trainingResponse: 'Model training complete!' })
+      })
     })
   }
 
@@ -101,6 +107,13 @@ export default class FlightControls extends React.Component {
       }))
 
       this.sendCommand('train-direction', direction)
+    }
+  }
+
+  startModelTraining() {
+    return () => {
+      this.setState({ trainingResponse: 'Training in progress...' })
+      this.sendCommand('train-model')
     }
   }
 
@@ -172,6 +185,11 @@ export default class FlightControls extends React.Component {
             </button>
           </TrainingRow>
         ))}
+
+        <TrainingRow style={{ paddingTop: '50px' }}>
+          <button onClick={this.startModelTraining()}>Train Model</button>
+          <span>{this.state.trainingResponse}</span>
+        </TrainingRow>
       </TrainingDisplay>
     )
   }

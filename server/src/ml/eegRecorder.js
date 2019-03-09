@@ -20,6 +20,8 @@ process.on('message', message => {
 
   if (directionIdx > -1) {
     capture(directionIdx)
+  } else if (message === 'live') {
+    captureLive()
   } else {
     cytonBoard.disconnect()
   }
@@ -66,6 +68,50 @@ const capture = (directionIdx, logChannelData = false) => {
                 console.log(
                   `Channel ${i + 1}: ${sample.channelData[i].toFixed(8)} Volts.`
                 )
+              }
+            }
+          })
+        })
+    } else {
+      /** Unable to auto find OpenBCI board */
+      console.log('Unable to auto find OpenBCI board')
+    }
+  })
+}
+
+const captureLive = () => {
+  cytonBoard.on('error', err => {
+    console.log(err)
+  })
+
+  cytonBoard.autoFindOpenBCIBoard().then(portName => {
+    if (portName) {
+      /**
+       * Connect to the board with portName
+       * Only works if one board is plugged in
+       * i.e. cytonBoard.connect(portName).....
+       */
+      cytonBoard
+        .connect(portName) // Port name is a serial port name, see `.listPorts()`
+        .then(() => {
+          cytonBoard.streamStart()
+          let samples = []
+
+          cytonBoard.on('sample', sample => {
+            /** Work with sample */
+
+            if (sample.valid) {
+              let allChannels = []
+
+              sample.channelData.map(cd => {
+                allChannels.push(+cd.toFixed(8))
+              })
+
+              samples.push(allChannels)
+
+              if (samples.length === 100) {
+                process.send(samples)
+                samples = []
               }
             }
           })

@@ -37,14 +37,14 @@ class SteeringModel {
     const model = tf.sequential()
     model.add(
       tf.layers.dense({
-        units: 16,
+        units: 1,
         activation: 'sigmoid',
         inputShape: [this.numChannels]
       })
     )
-    // model.add(tf.layers.dense({ units: 175 }));
-    // model.add(tf.layers.dense({ units: 150 }));
-    // model.add(tf.layers.dense({ units: 350 }));
+    model.add(tf.layers.dense({ units: 175 }))
+    model.add(tf.layers.dense({ units: 150 }))
+    model.add(tf.layers.dense({ units: 350 }))
     model.add(
       tf.layers.dense({ units: this.numDirections, activation: 'softmax' })
     )
@@ -144,6 +144,8 @@ class SteeringModel {
         }
       }
     })
+
+    return model
   }
 }
 
