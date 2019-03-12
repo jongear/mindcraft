@@ -8,6 +8,9 @@ Checkout the SXSW 2019 Slideshow and Movies
 
 [Download Slides and Movies](https://drive.google.com/file/d/1XByvO6gcyoWVl9UORXk2Ro01nIck12OC/view?usp=sharing)
 
+![Live Art of Talk](assets/images/liveart.jpg)
+Courtesy of [Justus Sturkenboom](https://twitter.com/ju5tu5/status/1104514334993104897)
+
 ## BCI Devices
 
 This presentation makes use of two BCI devices. The first a NeuroSky Mindwave Mobile 2 which is a single channel headset which is good for building BCI applications that can function off alpha and beta-rhythms. The second headset is a Ultracortex Mark IV by OpenBCI which can support up to 16 channels which allows for more complicated BCI experiments such as ones leveraging the visual cortex and the motor cortex.
