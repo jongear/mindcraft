@@ -35,7 +35,7 @@
     "morgan": "^1.9.0",
     "node-thinkgear-sockets": "0.0.1",
     "openbci": "^3.0.0",
-    "socket.io": "^2.4.0"
+    "socket.io": "^2.5.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
