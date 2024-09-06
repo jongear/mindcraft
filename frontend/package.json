@@ -8,7 +8,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "5.0.1",
     "react-step-progress-bar": "^1.0.3",
-    "socket.io-client": "^2.2.0",
+    "socket.io-client": "^2.5.0",
     "styled-components": "^3.2.6"
   },
   "version": "0.1.0",
